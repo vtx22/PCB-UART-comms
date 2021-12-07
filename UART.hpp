@@ -5,7 +5,6 @@
 #include <iostream>
 #include <sstream>
 #include <termios.h>
-#include <atomic>
 #include <unistd.h>
 #include <string.h>
 
@@ -25,7 +24,7 @@ private:
 
    uint8_t calculateChecksum(uint8_t *msg);
    uint8_t _calculateChecksumRX();
-   std::atomic<int> uart0 = {-1};
+   int uart0 = {-1};
 
    bool _began = false;
 
