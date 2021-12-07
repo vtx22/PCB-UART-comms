@@ -8,3 +8,13 @@ PCB::~PCB()
 {
    delete _uart;
 }
+
+void PCB::setMode(PCB_MODE mode)
+{
+   uint8_t msg[_uart->getMessageSize()];
+
+   msg[0] = SET_MODE;
+   msg[1] = mode;
+
+   _uart->transmitMessage(msg);
+}
