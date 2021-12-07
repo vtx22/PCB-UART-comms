@@ -29,7 +29,7 @@ bool UART::begin()
    }
 
    //O_RDWR - Open for reading and writing.
-   uart0 = open(_dev, O_RDWR);
+   uart0 = open(_dev.c_str(), O_RDWR);
    if (uart0 == -1)
    {
       printf("UART error: unable to open\t\n");

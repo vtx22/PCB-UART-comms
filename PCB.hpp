@@ -1,5 +1,7 @@
 #pragma once
 #include "UART.hpp"
+#include "enums.hpp"
+#include "structs.hpp"
 
 enum PCB_MODE
 {
