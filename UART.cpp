@@ -102,9 +102,16 @@ void UART::transmitMessage(uint8_t *msg)
       return;
    }
 
-   char data[_messageSize] = {'H', 'H', 'H', 'H', 'H'};
+   uint8_t message[_messageSize];
 
-   if (write(uart0, &data[0], _messageSize) < 0)
+   message[0] = _id;
+   for (uint8_t cnt = 1; cnt < _messageSize - 2; cnt++)
+   {
+      message[cnt] = msg[cnt - 1];
+   }
+   appendChecksum(message);
+
+   if (write(uart0, message, _messageSize) < 0)
    {
       printf("UART ERROR: Could not send data!\n");
       return;
