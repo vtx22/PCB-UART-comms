@@ -25,7 +25,7 @@ bool UART::begin()
 {
    if (_began)
    {
-      return;
+      return true;
    }
 
    //O_RDWR - Open for reading and writing.
