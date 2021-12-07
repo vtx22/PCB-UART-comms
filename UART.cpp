@@ -102,7 +102,7 @@ void UART::transmitMessage(uint8_t *msg)
       return;
    }
 
-   uint8_t message[_messageSize] = {0x00};
+   uint8_t message[_messageSize];
 
    message[0] = _id;
    for (uint8_t cnt = 1; cnt < _messageSize - 2; cnt++)

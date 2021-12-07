@@ -6,7 +6,7 @@ PCB::PCB(UART *uart) : _uart(uart)
 
 PCB::~PCB()
 {
-   delete _uart;
+   //delete _uart;
 }
 
 void PCB::setMode(PCB_MODE mode)
@@ -17,4 +17,5 @@ void PCB::setMode(PCB_MODE mode)
    msg[1] = mode;
 
    _uart->transmitMessage(msg);
+   printf("UART: Set PCB Mode to: %d", mode);
 }
