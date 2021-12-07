@@ -94,6 +94,25 @@ void UART::run()
    }
 }
 
+void UART::transmitMessage(uint8_t *msg)
+{
+   if (uart0 < 0)
+   {
+      printf("ERROR: No UART configured!\n");
+      return;
+   }
+
+   uint8_t data[_messageSize] = {0xEE};
+
+   if (write(uart0, &data[0], _messageSize) < 0)
+   {
+      printf("ERROR: Could not send data!\n");
+      return;
+   }
+
+   printf("UART: Transmit succesfull");
+}
+
 void UART::appendChecksum(uint8_t *msg)
 {
    msg[_messageSize - 1] = calculateChecksum(msg);

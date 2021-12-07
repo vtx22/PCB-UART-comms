@@ -15,7 +15,7 @@ public:
    bool begin();
    void run();
 
-   void transmitMessage(uint8_t *msg);
+   void transmitMessage();
 
 private:
    void appendChecksum(uint8_t *msg);
@@ -30,5 +30,6 @@ private:
    std::string _dev;
 
    const static uint8_t _messageSize = 12; //Message size in bytes
+   uint8_t TXBuffer[_messageSize];
    uint8_t RXBuffer[_messageSize];
 };
