@@ -11,7 +11,7 @@ PCB::~PCB()
 
 void PCB::setMode(PCB_MODE mode)
 {
-   uint8_t msg[_uart->getMessageSize()];
+   uint8_t msg[_uart->getMessageSize()] = {0x00};
 
    msg[0] = SET_MODE;
    msg[1] = mode;
