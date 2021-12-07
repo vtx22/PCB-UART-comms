@@ -102,7 +102,7 @@ void UART::transmitMessage(uint8_t *msg)
       return;
    }
 
-   uint8_t data[_messageSize] = {0xEE};
+   char data[_messageSize] = {'H', 'H', 'H', 'H', 'H'};
 
    if (write(uart0, &data[0], _messageSize) < 0)
    {
@@ -110,7 +110,7 @@ void UART::transmitMessage(uint8_t *msg)
       return;
    }
 
-   printf("UART: Transmit succesfull\n");
+   printf("UART: Transmit successfull\n");
 }
 
 void UART::appendChecksum(uint8_t *msg)
