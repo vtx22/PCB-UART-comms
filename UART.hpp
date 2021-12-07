@@ -12,7 +12,6 @@
 class UART
 {
 public:
-   UART();
    UART(std::string device);
    ~UART();
 
@@ -26,7 +25,7 @@ private:
 
    uint8_t calculateChecksum(uint8_t *msg);
    uint8_t _calculateChecksumRX();
-   std::atomic<int> uart0{-1};
+   std::atomic<int> uart0 = {-1};
 
    bool _began = false;
 
