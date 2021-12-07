@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <termios.h>
+#include <atomic>
 
 class UART
 {
@@ -15,7 +16,7 @@ public:
    bool begin();
    void run();
 
-   void transmitMessage();
+   void transmitMessage(uint8_t *msg);
 
 private:
    void appendChecksum(uint8_t *msg);

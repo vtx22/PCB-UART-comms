@@ -69,21 +69,21 @@ void UART::run()
          return;
       }
 
-      if (RXBuffer[_messageSize - 1] != calculateChecksumRX())
+      if (RXBuffer[_messageSize - 1] != _calculateChecksumRX())
       {
          std::cout << "UART error: Wrong Checksum!"
                    << "\t\n";
          return;
       }
 
-      if (rxBuffer[0] != _id)
+      if (RXBuffer[0] != _id)
       {
          std::cout << "UART error: wrong primary id "
                    << "\t\n";
          return;
       }
 
-      switch (rxBuffer[1])
+      switch (RXBuffer[1])
       {
 
       default:
