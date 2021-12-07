@@ -7,10 +7,12 @@
 #include <termios.h>
 #include <atomic>
 #include <unistd.h>
+#include <string.h>
 
 class UART
 {
 public:
+   UART();
    UART(std::string device);
    ~UART();
 

@@ -1,4 +1,7 @@
 #include "UART.hpp"
+UART::UART()
+{
+}
 
 UART::UART(std::string device) : _dev(device)
 {
