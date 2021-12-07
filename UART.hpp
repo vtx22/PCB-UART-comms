@@ -5,7 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <termios.h>
-//#include <atomic>
+#include <atomic>
 #include <unistd.h>
 
 class UART
