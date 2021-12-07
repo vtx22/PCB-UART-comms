@@ -5,11 +5,11 @@ UART::UART(std::string device) : _dev(device)
 
    if (begin())
    {
-      printf("UART started!\t\n");
+      printf("UART started!\n");
    }
    else
    {
-      printf("ERROR: UART start failed!\t\n");
+      printf("ERROR: UART start failed!\n");
    }
 }
 
@@ -32,7 +32,7 @@ bool UART::begin()
    uart0 = open(_dev.c_str(), O_RDWR);
    if (uart0 == -1)
    {
-      printf("UART error: unable to open\t\n");
+      printf("UART ERROR: Unable to open port!\n");
       return false;
    }
 
@@ -56,7 +56,7 @@ void UART::run()
 {
    if (uart0 < 0)
    {
-      std::cout << "UART error: cannot receive, no uart configured\t\n";
+      std::cout << "UART ERROR: cannot receive, no uart configured\n";
       return;
    }
 
@@ -65,21 +65,21 @@ void UART::run()
       int rxLength = read(uart0, (void *)RXBuffer, _messageSize);
       if (rxLength <= 0)
       {
-         std::cout << "UART error: no bytes received\n";
+         std::cout << "UART ERROR: no bytes received\n";
          return;
       }
 
       if (RXBuffer[_messageSize - 1] != _calculateChecksumRX())
       {
-         std::cout << "UART error: Wrong Checksum!"
-                   << "\t\n";
+         std::cout << "UART ERROR: Wrong Checksum!"
+                   << "\n";
          return;
       }
 
       if (RXBuffer[0] != _id)
       {
-         std::cout << "UART error: wrong primary id "
-                   << "\t\n";
+         std::cout << "UART ERROR: wrong primary id "
+                   << "\n";
          return;
       }
 
@@ -87,8 +87,8 @@ void UART::run()
       {
 
       default:
-         std::cout << "UART error: invalid command id "
-                   << "\t\n";
+         std::cout << "UART ERROR: invalid command id "
+                   << "\n";
          break;
       }
    }
@@ -98,7 +98,7 @@ void UART::transmitMessage(uint8_t *msg)
 {
    if (uart0 < 0)
    {
-      printf("ERROR: No UART configured!\n");
+      printf("UART ERROR: No UART configured!\n");
       return;
    }
 
@@ -106,11 +106,11 @@ void UART::transmitMessage(uint8_t *msg)
 
    if (write(uart0, &data[0], _messageSize) < 0)
    {
-      printf("ERROR: Could not send data!\n");
+      printf("UART ERROR: Could not send data!\n");
       return;
    }
 
-   printf("UART: Transmit succesfull");
+   printf("UART: Transmit succesfull\n");
 }
 
 void UART::appendChecksum(uint8_t *msg)
