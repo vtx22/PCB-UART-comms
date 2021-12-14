@@ -44,6 +44,7 @@ private:
    float _pcbTemp = 0.f;
    float _iotTemp = 0.f;
    float _outTemp = 0.f;
+   float _humidity = 0.f;
 
    PUBLISH_MESSAGE parseMessage(uint8_t *msg);
    void parseMSG85(uint8_t *msg);

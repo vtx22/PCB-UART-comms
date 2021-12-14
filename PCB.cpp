@@ -57,10 +57,12 @@ void PCB::parseMSG86(uint8_t *msg)
    uint16_t tempPCB = (msg[2] << 8) + msg[3];
    uint16_t tempIOT = (msg[4] << 8) + msg[5];
    uint16_t tempOUT = (msg[6] << 8) + msg[7];
+   uint16_t humidity = (mgs[8] << 8) + msg[9];
 
    _pcbTemp = tempPCB / 100.f;
    _iotTemp = tempIOT / 100.f;
    _outTemp = tempOUT / 100.f;
+   _humidity = humidity / 10.f;
 }
 
 void PCB::setMode(PCB_MODE mode)
