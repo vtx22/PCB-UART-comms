@@ -47,6 +47,6 @@ private:
 
    PUBLISH_MESSAGE parseMessage(uint8_t *msg);
    void parseMSG85(uint8_t *msg);
-   oid parseMSG86(uint8_t *msg);
+   void parseMSG86(uint8_t *msg);
    UART *_uart;
 };
