@@ -20,6 +20,8 @@ void PCB::receiveAndParse()
 
 void PCB::parseMessage(uint8_t *msg)
 {
+   printf("UART: Received Message with ID: %d", msg[1]);
+
    switch (msg[1])
    {
    case 0x85:
@@ -31,8 +33,10 @@ void PCB::parseMessage(uint8_t *msg)
    }
 }
 
+//Battery Message
 void PCB::parseMSG85(uint8_t *msg)
 {
+
    uint16_t vol = (msg[2] << 8) + msg[3];
    int16_t cur = (msg[3] << 8) + msg[4];
 

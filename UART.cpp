@@ -9,7 +9,7 @@ UART::UART(std::string device) : _dev(device)
    }
    else
    {
-      printf("ERROR: UART start failed!\n");
+      printf("UART ERROR: UART start failed!\n");
    }
 }
 
@@ -25,6 +25,7 @@ bool UART::begin()
 {
    if (_began)
    {
+      printf("UART ERROR: UART already open!\n");
       return true;
    }
 
@@ -41,10 +42,13 @@ bool UART::begin()
    //IGNPAR = Ignore characters with parity errors
    struct termios options;
    tcgetattr(uart0, &options);
-   options.c_cflag = B115200 | CS8 | CLOCAL | CREAD;
-   options.c_iflag = IGNPAR;
-   options.c_oflag = 0;
-   options.c_lflag = 0;
+   options.c_cflag |= B115200 | CS8 | CLOCAL | CREAD;
+   options.c_cflag &= ~PARENB;
+   options.c_iflag &= ~(IGNBRK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL);
+   options.c_oflag |= 0;
+   options.c_lflag &= ~ICANON;
+   options.c_cc[VTIME] = 0;
+   options.c_cc[VMIN] = _messageSizeRX;
    tcflush(uart0, TCIFLUSH);
    tcsetattr(uart0, TCSANOW, &options);
 
@@ -56,7 +60,7 @@ void UART::run()
 {
    if (uart0 < 0)
    {
-      std::cout << "UART ERROR: cannot receive, no uart configured\n";
+      std::cout << "UART ERROR: No UART configured!\n";
       return;
    }
 
@@ -122,17 +126,19 @@ void UART::transmitMessage(uint8_t *msg)
 
 bool UART::receiveMessage(uint8_t *msg)
 {
-   if (read(uart0, (void *)RXBuffer, _messageSize) <= 0)
+   if (read(uart0, (void *)RXBuffer, _messageSizeRX) <= 0)
    {
+      printf("UART ERROR: No message received!\n");
       return false;
    }
 
    if (!checkMessage())
    {
+      printf("UART ERROR: Message Check failed!\n");
       return false;
    }
 
-   for (uint8_t cnt = 0; cnt < _messageSize; cnt++)
+   for (uint8_t cnt = 0; cnt < _messageSizeRX; cnt++)
    {
       msg[cnt] = RXBuffer[cnt];
    }

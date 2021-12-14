@@ -1,7 +1,7 @@
 #include "UART.hpp"
 #include "PCB.hpp"
 #include <unistd.h>
-
+#include <thread>
 //#include "std_msgs/String.h"
 //#include "ros/ros.h"
 
@@ -31,6 +31,7 @@ int main(int argc, char const *argv[])
 
    while (true)
    {
+      pcb.receiveAndParse();
    }
 }
 

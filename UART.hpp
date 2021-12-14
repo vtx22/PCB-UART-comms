@@ -33,6 +33,7 @@ private:
    std::string _dev;
 
    const static uint8_t _messageSize = 12; //Message size in bytes
+   const static uint8_t _messageSizeRX = 12;
    uint8_t TXBuffer[_messageSize];
-   uint8_t RXBuffer[_messageSize];
+   uint8_t RXBuffer[_messageSizeRX];
 };
