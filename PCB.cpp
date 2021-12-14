@@ -52,5 +52,5 @@ void PCB::setMode(PCB_MODE mode)
    msg[1] = mode;
 
    _uart->transmitMessage(msg);
-   printf("UART: Set PCB Mode to: %d", mode);
+   printf("UART: Set PCB Mode to: %d\n", mode);
 }
