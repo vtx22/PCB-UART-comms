@@ -22,8 +22,8 @@ public:
    void receiveAndParse();
 
    void setMode(PCB_MODE mode);
-   void setConfig();
-   void setRails(bool railADJ, bool rail24V);
+   void setConfig(){};
+   void setRails(bool railADJ, bool rail24V){};
 
 private:
    void parseMessage(uint8_t *msg);
