@@ -14,10 +14,9 @@ enum PUBLISH_MESSAGE
 {
    UPDATE_NONE = 0x00,
    UPDATE_BAT = 0x01,
-   UPDATE_TEMP = 0x02;
+   UPDATE_TEMP = 0x02,
 
-}
-typedef PUBLISH_MESSAGE;
+} typedef PUBLISH_MESSAGE;
 
 const uint8_t SET_MODE = 0x05;
 const uint8_t SET_RAIL = 0x06;
@@ -46,7 +45,8 @@ private:
    float _iotTemp = 0.f;
    float _outTemp = 0.f;
 
-   void parseMessage(uint8_t *msg);
+   PUBLISH_MESSAGE parseMessage(uint8_t *msg);
    void parseMSG85(uint8_t *msg);
+   oid parseMSG86(uint8_t *msg);
    UART *_uart;
 };
