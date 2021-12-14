@@ -19,10 +19,14 @@ public:
    PCB(UART *uart);
    ~PCB();
 
+   void receiveAndParse();
+
    void setMode(PCB_MODE mode);
    void setConfig();
    void setRails(bool railADJ, bool rail24V);
 
 private:
+   void parseMessage(uint8_t *msg);
+   void paseMSG85(uint8_t *msg);
    UART *_uart;
 };

@@ -5,7 +5,7 @@ UART::UART(std::string device) : _dev(device)
 
    if (begin())
    {
-      printf("UART started!\n");
+      printf("UART: Started UART\n");
    }
    else
    {
@@ -118,6 +118,42 @@ void UART::transmitMessage(uint8_t *msg)
    }
 
    printf("UART: Transmit successfull\n");
+}
+
+bool UART::receiveMessage(uint8_t *msg)
+{
+   if (read(uart0, (void *)RXBuffer, _messageSize) <= 0)
+   {
+      return false;
+   }
+
+   if (!checkMessage())
+   {
+      return false;
+   }
+
+   for (uint8_t cnt = 0; cnt < _messageSize; cnt++)
+   {
+      msg[cnt] = RXBuffer[cnt];
+   }
+
+   return true;
+}
+
+bool UART::checkMessage()
+{
+   if (_calculateChecksumRX() != RXBuffer[_messageSize - 1])
+   {
+      printf("UART ERROR: Wrong Checksum!\n");
+      return false;
+   }
+   if (RXBuffer[0] != _id)
+   {
+      printf("UART ERROR: IDs do not match!\n");
+      return false;
+   }
+
+   return true;
 }
 
 void UART::appendChecksum(uint8_t *msg)

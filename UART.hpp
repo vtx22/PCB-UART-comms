@@ -15,12 +15,13 @@ public:
    ~UART();
 
    bool begin();
-   void run();
    uint8_t getMessageSize() { return _messageSize; }
    void transmitMessage(uint8_t *msg);
+   bool receiveMessage(uint8_t *msg);
 
 private:
-      void appendChecksum(uint8_t *msg);
+   void appendChecksum(uint8_t *msg);
+   bool checkMessage();
 
    uint8_t calculateChecksum(uint8_t *msg);
    uint8_t _calculateChecksumRX();
