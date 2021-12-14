@@ -9,16 +9,18 @@ PCB::~PCB()
    delete _uart;
 }
 
-void PCB::receiveAndParse()
+PUBLISH_MESSAGE PCB::receiveAndParse()
 {
    uint8_t data[_uart->getMessageSize()];
    if (_uart->receiveMessage(data))
    {
-      parseMessage(data);
+      return parseMessage(data);
    }
+
+   return UPDATE_NONE;
 }
 
-void PCB::parseMessage(uint8_t *msg)
+PUBLISH_MESSAGE PCB::parseMessage(uint8_t *msg)
 {
    printf("UART: Received Message with ID: %d", msg[1]);
 
@@ -26,9 +28,11 @@ void PCB::parseMessage(uint8_t *msg)
    {
    case 0x85:
       parseMSG85(msg);
+      return UPDATE_BAT;
       break;
 
    default:
+      return UPDATE_NONE;
       break;
    }
 }
@@ -36,12 +40,23 @@ void PCB::parseMessage(uint8_t *msg)
 //Battery Message
 void PCB::parseMSG85(uint8_t *msg)
 {
-
    uint16_t vol = (msg[2] << 8) + msg[3];
    int16_t cur = (msg[3] << 8) + msg[4];
 
-   float voltage = vol / 1000.f;
-   float current = cur / 1000.f;
+   _batVol = vol / 1000.f;
+   _batCur = cur / 1000.f;
+}
+
+//Temperature message
+void PCB::parseMSG86(uint8_t *msg)
+{
+   uint16_t tempPCB = (msg[2] << 8) + msg[3];
+   uint16_t tempIOT = (msg[4] << 8) + msg[5];
+   uint16_t tempOUT = (msg[6] << 8) + msg[7];
+
+   _pcbTemp = tempPCB / 100.f;
+   _iotTemp = tempIOT / 100.f;
+   _outTemp = tempOUT / 100.f;
 }
 
 void PCB::setMode(PCB_MODE mode)
