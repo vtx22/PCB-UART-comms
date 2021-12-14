@@ -22,13 +22,17 @@ PUBLISH_MESSAGE PCB::receiveAndParse()
 
 PUBLISH_MESSAGE PCB::parseMessage(uint8_t *msg)
 {
-   printf("UART: Received Message with ID: %d", msg[1]);
+   printf("UART: Received Message with ID: %d (0x%02X)\n", msg[1], msg[1]);
 
    switch (msg[1])
    {
    case 0x85:
       parseMSG85(msg);
       return UPDATE_BAT;
+      break;
+   case 0x86:
+      parseMSG86(msg);
+      return UPDATE_TEMP;
       break;
 
    default:
