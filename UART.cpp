@@ -55,7 +55,7 @@ bool UART::begin()
    _began = true;
    return true;
 }
-
+/*
 void UART::run()
 {
    if (uart0 < 0)
@@ -97,7 +97,7 @@ void UART::run()
       }
    }
 }
-
+*/
 void UART::transmitMessage(uint8_t *msg)
 {
    if (uart0 < 0)

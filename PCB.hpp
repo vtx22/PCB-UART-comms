@@ -27,6 +27,6 @@ public:
 
 private:
    void parseMessage(uint8_t *msg);
-   void paseMSG85(uint8_t *msg);
+   void parseMSG85(uint8_t *msg);
    UART *_uart;
 };
