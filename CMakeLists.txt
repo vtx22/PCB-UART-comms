@@ -5,7 +5,7 @@ project(myproject)
 # which we need to find_package() individually:
 #   roscpp (the client library)
 #   std_msgs (contains the std_msgs/String message type)
-find_package(roscpp REQUIRED)
+find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 # We've found them; now use their variables in the usual way to configure
 # the compile and link steps.
