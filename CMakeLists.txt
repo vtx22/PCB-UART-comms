@@ -18,5 +18,5 @@ add_executable(main "src/main.cpp" "src/PCB.cpp" "src/UART.cpp")
 target_link_libraries(main ${roscpp_LIBRARIES} ${std_msgs_LIBRARIES})
 
 # (optional) Install the executables.
-install(TARGETS talker listener
-        DESTINATION bin)
+install(TARGETS main
+        DESTINATION lib/$(PROJECT_NAME))
